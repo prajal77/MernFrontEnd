@@ -1,0 +1,19 @@
+PWA 
+    -Progressive Web Application:- Intended to work on any platform with a standards-compliant browser, including desktop and mobile devices
+
+-Named export/import 
+-default import/export
+
+a.js 
+    export const fooA = () => defined //named export
+
+    //last line 
+    export default fooA; //default export
+
+b.js
+    import {fooA} from "./a"; //named export
+    import fooA from "./a"
+    import "filepath"; //this file is a part of current file
+    fooA() call
+        
+
