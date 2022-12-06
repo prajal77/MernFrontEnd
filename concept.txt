@@ -1,5 +1,6 @@
 PWA 
-    -Progressive Web Application:- Intended to work on any platform with a standards-compliant browser, including desktop and mobile devices
+    -Progressive Web Application:- Intended to work on any platform with a standards-compliant browser,
+     including desktop and mobile devices
 
 -Named export/import 
 -default import/export
@@ -15,5 +16,27 @@ b.js
     import fooA from "./a"
     import "filepath"; //this file is a part of current file
     fooA() call
+
+##React Introduction
+** Components
+    - they are code blocks which create a view
+    - 2 types 
+        a. Class Based Components
+             
+        b. Functional Components    
         
+ ** States Vs Props 
+    - States are the data which is stored in the component for the uses by themselves.
+    - States can be created, updated or reset.
+        -Class Based component
+            -this.state
+            -this.setState()
+        -Functional Components
+            -setState() hook
+    - Props are the incoming data to a component
+    - Props are object data
+    - Props are readonly value
+                  
+
+    
 
