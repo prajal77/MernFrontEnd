@@ -14,8 +14,10 @@ class HomePage extends React.Component {
         this.state = {
             // name: "Prajwol Basnet",
             name: this.props.name,
-            address: "Kathmandu"
+            address: "Kathmandu",
+            data: null
         }
+        console.log("i am first call");
     }
 
     // state update
@@ -25,8 +27,22 @@ class HomePage extends React.Component {
             name: "Updated Name Value"
         })
     }
+    componentDidMount = () => {
+        //api call
+        this.setState({
+            ...this.state,
+            data: []
+        })
+        console.log("I am second call");
+    }
+
+    componentDidUpdate = () => {
+        // code
+        console.log("I am Third call");
+    }
 
     render = () => {
+        console.log("I am Render call");
         // view presentation
         return (
             // react fragment

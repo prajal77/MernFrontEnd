@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import HomePage from './pages/home.page';
+import FrontPage from './pages/front/index.page';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HomePage name="From Props" data={{ name: "testName", email: "test@test.com" }} />
+    <FrontPage.LoginPage />
 
   </React.StrictMode>
 );

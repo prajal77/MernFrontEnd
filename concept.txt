@@ -36,6 +36,28 @@ b.js
     - Props are the incoming data to a component
     - Props are object data
     - Props are readonly value
+
+## Lifecycle
+
+        -class Based
+            a. Mounting
+                - constructor()
+                    -> Initilization of the default States
+                    -> Props setup
+                -render()
+                    -> First time call() = Load Skeleton
+                - componentDidMount()
+                    -> after first render call, this function executes
+                    -> we call api for the first Load
+                    -> if needed update the states
+            b. Updated
+                - render()
+                    -> this function gets called everytime if any fo the state value gets changed
+                - componentDidUpdated()
+                    -> after second time render gets call this function always executues on any render call
+            c. Unmounting
+                -componentWillUnmount()
+                    -> this only gets executes when a component is switched with another
                   
 
     
