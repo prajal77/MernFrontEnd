@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-const LoginPage = () => {
+
+const RegisterPage = () => {
     // let [email, setEmail] = useState(null);
     // let [password, setPassword] = useState(null);
     // let [rememberMe, setRememberMe] = useState(false);
@@ -72,7 +73,7 @@ const LoginPage = () => {
             <Container>
                 <Row className="mt-5">
                     <Col sm={{ offset: 3, span: 6 }}>
-                        <h4>Login Page</h4>
+                        <h4>Register Page</h4>
                         <hr />
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -107,7 +108,7 @@ const LoginPage = () => {
                             <div className="d-grid">
                                 <Button variant="success" type="submit" size="sm">
                                     Submit
-                                </Button> OR <NavLink to="/register">Register Here</NavLink>
+                                </Button> OR <NavLink to="/login">Login Here</NavLink>
                             </div>
                         </Form>
                     </Col>
@@ -116,5 +117,7 @@ const LoginPage = () => {
 
         </>
     )
+
 }
-export default LoginPage
+
+export default RegisterPage;
