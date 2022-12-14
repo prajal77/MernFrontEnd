@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 const LoginPage = () => {
     // let [email, setEmail] = useState(null);
@@ -11,21 +11,55 @@ const LoginPage = () => {
         rememberMe: false
     }
     let [data, setData] = useState(defaultData);
-
-    // First way of useing useEffect hook
-    useEffect(() => {
-        // this hook executes if any new state is initialized or changed any time or multiple time
+    let [err, setErr] = useState({
+        email: '',
+        password: ''
     });
 
+    // First way of useing useEffect hook
+    // useEffect(() => {
+    //     // this hook executes if any new state is initialized or changed any time or multiple time
+    // });
+
     // second way
-    useEffect(() => {
-        // this hook execute only once when the component is loaded
-    }, []);
+    // useEffect(() => {
+    //     // this hook execute only once when the component is loaded
+    // }, []);
 
     // Third way
-    useEffect(() => {
-        // this hook only execues when the data state is updated
-    }, [data]);
+    // useEffect(() => {
+    //     // this hook only execues when the data state is updated
+    // }, [data]);
+    const handleChange = (e) => {
+        let { name, value } = e.target;
+        setData({
+            ...data,
+            [name]: value //[] gives us the key value
+        })
+        validateData(name, value);
+    }
+
+    const validateData = (field, value) => {
+        let msg = "";
+        switch (field) {
+            case 'email':
+                msg = !value ? "Email is required" :
+                    (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+                        .test(value) ? "" : "invalid email Format")
+                break;
+            case 'password':
+                msg = !value ? "Password is required" : (value.length < 9 ? "Password must be 8 character long" : "");
+                break;
+            default:
+                break;
+        }
+        setErr({
+            ...err,
+            [field]: msg
+        })
+    }
+
+    console.log(data);
 
     return (
         <>
@@ -37,15 +71,29 @@ const LoginPage = () => {
                         <Form>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" name="email" size="sm" required />
-                                <Form.Text className="text-muted">
-                                    We'll never share your email with anyone else.
-                                </Form.Text>
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Enter email"
+                                    name="email"
+                                    size="sm"
+                                    required
+                                    onChange={(e) => {
+                                        let value = e.target.value;
+                                        setData({
+                                            ...data,
+                                            email: value
+                                        })
+                                        validateData("email", value)
+                                    }}
+                                />
+                                <em className="text-danger">{err?.email}</em>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" name="password" size="sm" required />
+                                <Form.Control type="password" placeholder="Password" name="password" size="sm" required
+                                    onChange={handleChange} />
+                                <em className="text-danger">{err?.password}</em>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Remember Me" name="remember me" />
