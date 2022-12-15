@@ -5,7 +5,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css" //bootstrap css
 // import "bootstrap"//full bootstrap js
-import { Nav, Container, Navbar, Carousel } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
+// import { NavLink } from "react-router-dom";
+import FrontComponent from "../../component/front";
 
 class HomePage extends React.Component {
 
@@ -47,16 +49,7 @@ class HomePage extends React.Component {
         return (
             // react fragment
             <>
-                <Navbar bg="dark" variant="dark">
-                    <Container>
-                        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-                        <Nav className="me-auto">
-                            <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#features">Features</Nav.Link>
-                            <Nav.Link href="#pricing">Pricing</Nav.Link>
-                        </Nav>
-                    </Container>
-                </Navbar>
+                <FrontComponent.NavbarComponent />
                 <Carousel fade>
                     <Carousel.Item>
                         <img

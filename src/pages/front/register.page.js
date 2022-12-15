@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import FrontComponent from "../../component/front";
 
 const RegisterPage = () => {
     // let [email, setEmail] = useState(null);
@@ -70,6 +71,7 @@ const RegisterPage = () => {
 
     return (
         <>
+            <FrontComponent.NavbarComponent />
             <Container>
                 <Row className="mt-5">
                     <Col sm={{ offset: 3, span: 6 }}>
