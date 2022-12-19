@@ -1,6 +1,14 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import AdminPages from "../pages/admin";
 import FrontPage from "../pages/front"
+import AdminLayout from "../pages/layouts/admin-layout.page";
 import FrontLayout from "../pages/layouts/front-layout.page";
+
+const PrivateRoute = (props) => {
+    let component = props.component;
+    let isLoggedIn = true;
+    return (isLoggedIn ? component : <Navigate to="/login" />);
+}
 
 const Routing = () => {
 
@@ -16,8 +24,17 @@ const Routing = () => {
 
                     <Route path="*" element={<FrontPage.ErrorPage />} />
                 </Route>
+
+                <Route path="/admin" element={<PrivateRoute component={<AdminLayout />} />}>
+                    <Route index element={<AdminPages.DashboardPage />} />
+                    <Route path="banner" element={<AdminPages.Banner.BannerLayout />}>
+                        <Route index element={<AdminPages.Banner.BannerListComponent />} />
+                        <Route path="create" element={<AdminPages.Banner.BannerCreateComponent />} />
+                    </Route>
+                </Route>
+
             </Routes>
-        </BrowserRouter>
+        </BrowserRouter >
     );
 }
 
