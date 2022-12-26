@@ -3,6 +3,8 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import { httpPostRequest } from "../../services/axios.service";
 const LoginPage = () => {
     // let [email, setEmail] = useState(null);
 
@@ -77,8 +79,16 @@ const LoginPage = () => {
     let formik = useFormik({
         initialValues: defaultData,
         validationSchema: loginValidationSchema,
-        onSubmit: (values) => {
-            console.log("value:", values)
+        onSubmit: async (values) => {
+            let response = await httpPostRequest('/login', values)
+
+            // let response = await axios.post("http://localhost:3005/api/v1/login", values, {
+            //     hearders: {
+            //         "content-type": "application/json"
+            //     }
+            // }); //.get(), .post(), .put(), .patch(), .delete(), .options()
+            //CORS => Cross Reference Site 
+            console.log(response);
         }
     })
     return (

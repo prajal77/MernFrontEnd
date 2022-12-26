@@ -60,5 +60,28 @@ b.js
                     -> this only gets executes when a component is switched with another
                   
 
+
+##Axios 
+    -If success:
+    {
+        status: name  / HTTP Response Code,
+        statusText: string,
+        data: {} /response from api,
+        request: {},
+        config: {},
+        headers:{}
+    }
+    -If error{
+        name: string, 
+        message: string,
+        code: text,
+        response: {data: {}} / response from api,
+        request: {},
+        config: {},
+        headers: {}
+    }
+
+XHR: xml, HTTP, Request
+
     
 
