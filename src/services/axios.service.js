@@ -18,7 +18,37 @@ axiosInstance.interceptors.response.use((response) => {
     }
 })
 
-export const httpPostRequest = (url, data) => {
-    return axiosInstance.post(url, data)
+let headers = {};
+const setHeader = (isStrict, formData = false) => {
+    headers = {
+        headers: {
+            "content-type": "application/json"
+        }
+    }
+}
 
+export const httpPostRequest = (url, data, isStrict = false, formData = false) => {
+    setHeader(isStrict, formData);
+    return axiosInstance.post(url, data, headers)
+    // 
+}
+
+export const httpGetRequest = (url, isStrict = false) => {
+    setHeader(isStrict);
+    return axiosInstance.get(url, headers);
+}
+
+export const httpPutRequest = (url, data, isStrict = false, formData = false) => {
+    setHeader(isStrict, formData)
+    return axiosInstance.put(url, data, headers);
+}
+
+export const httpPatchRequest = (url, data, isStrict = false, formData = false) => {
+    setHeader(isStrict, formData)
+    return axiosInstance.put(url, data, headers);
+}
+
+export const httpDeleteRequest = (url, isStrict = false) => {
+    setHeader(isStrict);
+    return axiosInstance.delete(url);
 }
