@@ -12,7 +12,11 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use((response) => {
     if (response.status === 200 || response.status === 201) {
         return response.data;
-    } else {
+    } else if (response.status === 401) {
+        localStorage.clear();
+        return response;
+    }
+    else {
         console.log("Error:", response);
         return response;
     }

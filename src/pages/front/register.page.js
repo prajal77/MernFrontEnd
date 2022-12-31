@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
     // let [email, setEmail] = useState(null);
@@ -17,6 +17,14 @@ const RegisterPage = () => {
         email: '',
         password: ''
     });
+    let navigate = useNavigate();
+    useEffect(() => {
+        let token = localStorage.getItem("accessToken");
+        if (token) {
+            let userInfo = JSON.parse(localStorage.getItem('_au'));
+            navigate("/" + userInfo.role)
+        }
+    }, [navigate]);
 
     // First way of useing useEffect hook
     // useEffect(() => {

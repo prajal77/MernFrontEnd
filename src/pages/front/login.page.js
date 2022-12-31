@@ -1,17 +1,19 @@
 // import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { httpPostRequest } from "../../services/axios.service";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
 
 const LoginPage = () => {
     // let [email, setEmail] = useState(null);
 
     // let [password, setPassword] = useState(null);
     // let [rememberMe, setRememberMe] = useState(false);
+    let navigate = useNavigate();
 
     let defaultData = {
         email: "",
@@ -95,6 +97,7 @@ const LoginPage = () => {
                     localStorage.setItem('accessToken', response.result.accessToken);
                     localStorage.setItem("_au", JSON.stringify(userInfo));
                     toast.success(response.msg);
+                    navigate("/" + userInfo.role)
                 }
                 console.log("Response:", response);
             } catch (error) {
@@ -103,10 +106,17 @@ const LoginPage = () => {
             }
         }
     })
+
+    useEffect(() => {
+        let token = localStorage.getItem("accessToken");
+        if (token) {
+            let userInfo = JSON.parse(localStorage.getItem('_au'));
+            navigate("/" + userInfo.role)
+        }
+    }, [navigate]);
     return (
         <>
             <Container>
-                <ToastContainer />
                 <Row className="mt-5">
                     <Col sm={{ offset: 3, span: 6 }}>
                         <h4>Login Page</h4>

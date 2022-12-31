@@ -10,40 +10,40 @@ import { Carousel } from "react-bootstrap";
 
 class HomePage extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            // name: "Prajwol Basnet",
-            name: this.props.name,
-            address: "Kathmandu",
-            data: null
-        }
-        console.log("i am first call");
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         // name: "Prajwol Basnet",
+    //         name: this.props.name,
+    //         address: "Kathmandu",
+    //         data: null
+    //     }
+    //     console.log("i am first call");
+    // }
 
-    // state update
-    testFunction = () => {
-        this.setState({
-            ...this.state,
-            name: "Updated Name Value"
-        })
-    }
-    componentDidMount = () => {
-        //api call
-        this.setState({
-            ...this.state,
-            data: []
-        })
-        console.log("I am second call");
-    }
+    // // state update
+    // testFunction = () => {
+    //     this.setState({
+    //         ...this.state,
+    //         name: "Updated Name Value"
+    //     })
+    // }
+    // componentDidMount = () => {
+    //     //api call
+    //     this.setState({
+    //         ...this.state,
+    //         data: []
+    //     })
+    //     console.log("I am second call");
+    // }
 
-    componentDidUpdate = () => {
-        // code
-        console.log("I am Third call");
-    }
+    // componentDidUpdate = () => {
+    //     // code
+    //     console.log("I am Third call");
+    // }
 
     render = () => {
-        console.log("I am Render call");
+        // console.log("I am Render call");
         // view presentation
         return (
             // react fragment

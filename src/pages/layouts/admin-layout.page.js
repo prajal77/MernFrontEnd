@@ -3,6 +3,9 @@ import "../../assets/admin/css/admin.css";
 import "@fortawesome/fontawesome-free/css/all.min.css"
 import "bootstrap";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const AdminLayout = () => {
     const sidebarToggle = (e) => {
@@ -10,6 +13,7 @@ const AdminLayout = () => {
         document.body.classList.toggle('sb-sidenav-toggled');
     }
     return (<>
+        <ToastContainer />
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             {/* <!-- Navbar Brand--> */}
             <a className="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
