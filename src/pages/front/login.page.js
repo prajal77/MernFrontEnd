@@ -3,8 +3,10 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { httpPostRequest } from "../../services/axios.service";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const LoginPage = () => {
     // let [email, setEmail] = useState(null);
 
@@ -80,20 +82,31 @@ const LoginPage = () => {
         initialValues: defaultData,
         validationSchema: loginValidationSchema,
         onSubmit: async (values) => {
-            let response = await httpPostRequest('/login', values)
-
-            // let response = await axios.post("http://localhost:3005/api/v1/login", values, {
-            //     hearders: {
-            //         "content-type": "application/json"
-            //     }
-            // }); //.get(), .post(), .put(), .patch(), .delete(), .options()
-            //CORS => Cross Reference Site 
-            console.log(response);
+            try {
+                let response = await httpPostRequest('/login', values)
+                if (response.status) {
+                    // localStorage data set
+                    let userInfo = {
+                        id: response.result.user._id,
+                        name: response.result.user.name,
+                        image: response.result.user.image,
+                        role: response.result.user.role[0]
+                    }
+                    localStorage.setItem('accessToken', response.result.accessToken);
+                    localStorage.setItem("_au", JSON.stringify(userInfo));
+                    toast.success(response.msg);
+                }
+                console.log("Response:", response);
+            } catch (error) {
+                toast.error(error.response.data.msg);
+                console.error(error.response.data.msg);
+            }
         }
     })
     return (
         <>
             <Container>
+                <ToastContainer />
                 <Row className="mt-5">
                     <Col sm={{ offset: 3, span: 6 }}>
                         <h4>Login Page</h4>
