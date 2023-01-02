@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { httpPostRequest } from "../../services/axios.service";
 import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
@@ -102,7 +103,7 @@ const LoginPage = () => {
                 console.log("Response:", response);
             } catch (error) {
                 toast.error(error.response.data.msg);
-                console.error(error.response.data.msg);
+                // console.error(error.response.data.msg);
             }
         }
     })
@@ -117,6 +118,7 @@ const LoginPage = () => {
     return (
         <>
             <Container>
+                {/* <ToastContainer /> */}
                 <Row className="mt-5">
                     <Col sm={{ offset: 3, span: 6 }}>
                         <h4>Login Page</h4>

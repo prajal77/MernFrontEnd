@@ -3,6 +3,7 @@ import AdminPages from "../pages/admin";
 import FrontPage from "../pages/front"
 import AdminLayout from "../pages/layouts/admin-layout.page";
 import FrontLayout from "../pages/layouts/front-layout.page";
+import SellerLayout from "../pages/layouts/seller-layout.page";
 
 const PrivateRoute = (props) => {
     let component = props.component;
@@ -31,6 +32,10 @@ const Routing = () => {
                         <Route index element={<AdminPages.Banner.BannerListComponent />} />
                         <Route path="create" element={<AdminPages.Banner.BannerCreateComponent />} />
                     </Route>
+                </Route>
+
+                <Route path="seller" element={<PrivateRoute component={<SellerLayout />} />}>
+
                 </Route>
 
             </Routes>

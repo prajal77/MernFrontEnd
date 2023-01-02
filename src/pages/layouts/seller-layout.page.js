@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AdminPartials from "../admin/partials";
 
 
-const AdminLayout = () => {
+const SellerLayout = () => {
 
     return (<>
         <ToastContainer />
@@ -27,4 +27,4 @@ const AdminLayout = () => {
     </>)
 }
 
-export default AdminLayout;
+export default SellerLayout;

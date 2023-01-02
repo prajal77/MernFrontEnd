@@ -1,14 +1,17 @@
+import { NavLink } from "react-router-dom";
+import { uCfirst } from "../../../config/helpers";
+
 const AdminTopMenu = () => {
+    let userInfo = JSON.parse(localStorage.getItem('_au'));
     const sidebarToggle = (e) => {
         e.preventDefault();
         document.body.classList.toggle('sb-sidenav-toggled');
     }
     return (
-
         <>
             <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
                 {/* <!-- Navbar Brand--> */}
-                <a className="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+                <NavLink className="navbar-brand ps-3" to="">{uCfirst(userInfo.role)} Page</NavLink>
                 {/* <!-- Sidebar Toggle--> */}
                 <button
                     onClick={sidebarToggle}
