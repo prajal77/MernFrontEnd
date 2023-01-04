@@ -6,10 +6,23 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminPartials from "../admin/partials";
-
+import { httpGetRequest } from "../../services/axios.service";
+import { useEffect, useState } from "react";
 
 const AdminLayout = () => {
+    let [user, setUser] = useState();
 
+    const getUserDetail = async (id) => {
+        let userDetail = await httpGetRequest("/user/" + id, true);
+        console.log(userDetail);
+    }
+
+    useEffect(() => {
+        let loggedInUser = JSON.parse(localStorage.getItem("_au"));
+        if (loggedInUser) {
+            getUserDetail(loggedInUser.id)
+        }
+    }, []);
     return (<>
         <ToastContainer />
         <AdminPartials.AdminTopMenu />

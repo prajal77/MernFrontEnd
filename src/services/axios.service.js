@@ -29,6 +29,16 @@ const setHeader = (isStrict, formData = false) => {
             "content-type": "application/json"
         }
     }
+    if (isStrict) {
+        let token = localStorage.getItem('accessToken');
+        headers = {
+            headers: {
+                ...headers.headers,
+                "authorization": "Bearer " + token
+            }
+
+        }
+    }
 }
 
 export const httpPostRequest = (url, data, isStrict = false, formData = false) => {
