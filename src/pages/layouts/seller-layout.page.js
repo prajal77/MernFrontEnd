@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminPartials from "../admin/partials";
+import SellerPartials from "../seller/partials";
 
 
 const SellerLayout = () => {
@@ -13,9 +14,8 @@ const SellerLayout = () => {
     return (<>
         <ToastContainer />
         <AdminPartials.AdminTopMenu />
-
         <div id="layoutSidenav">
-            <AdminPartials.AdminSidebar />
+            <SellerPartials.SellerSidebar />
             <div id="layoutSidenav_content">
                 <main>
                     <Outlet />

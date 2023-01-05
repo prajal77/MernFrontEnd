@@ -10,7 +10,7 @@ const RegisterPage = () => {
     let defaultData = {
         email: "",
         password: "",
-        rememberMe: false
+        image: null,
     }
     let [data, setData] = useState(defaultData);
     let [err, setErr] = useState({
@@ -52,13 +52,19 @@ const RegisterPage = () => {
     const validateData = (field, value) => {
         let msg = "";
         switch (field) {
+            case "name":
+                msg = !value ? "name is required" : null
+                break;
             case 'email':
                 msg = !value ? "Email is required" :
                     (/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
-                        .test(value) ? "" : "invalid email Format")
+                        .test(value) ? "" : "invalid email Format");
+                break;
+            case "role":
+                msg = !value ? "role is required" : "";
                 break;
             case 'password':
-                msg = !value ? "Password is required" : (value.length < 9 ? "Password must be 8 character long" : "");
+                msg = !value ? "Password is required" : (value.length < 8 ? "Password must be 8 character long" : "");
                 break;
             default:
                 break;
@@ -73,8 +79,8 @@ const RegisterPage = () => {
         e.prevenDefault();
         // TODO API call to integration
     }
-
     console.log(data);
+
 
     return (
         <>
@@ -84,6 +90,25 @@ const RegisterPage = () => {
                         <h4>Register Page</h4>
                         <hr />
                         <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3" controlId="name">
+                                <Form.Label>Name: </Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Enter your name:"
+                                    name="name"
+                                    size="sm"
+                                    required
+                                    onChange={(e) => {
+                                        let value = e.target.value;
+                                        setData({
+                                            ...data,
+                                            name: value
+                                        })
+                                        validateData("name", value)
+                                    }}
+                                />
+                                <em className="text-danger">{err?.name}</em>
+                            </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control
@@ -104,15 +129,47 @@ const RegisterPage = () => {
                                 <em className="text-danger">{err?.email}</em>
                             </Form.Group>
 
+                            <Form.Group className="mb-3" controlId="role">
+                                <Form.Label>Role:</Form.Label>
+                                <Form.Select name="role" required onChange={(e) => {
+                                    let value = e.target.value;
+                                    setData({
+                                        ...data,
+                                        role: value
+                                    })
+                                    validateData("role", value)
+                                }}>
+                                    <option value="customer">Seller</option>
+                                    <option value="seller">Customer</option>
+                                </Form.Select>
+                                <em className="text-danger">{err?.role}</em>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="image">
+                                <Form.Label>Image:</Form.Label>
+                                <Form.Control type="file" name="image" size="sm"
+                                    onChange={(e) => {
+                                        // console(e.target.files);
+                                        // let imgUrl = URL.createObjectURL(e.target.files[0]);
+                                        let file = e.target.files[0];
+                                        setData({
+                                            ...data,
+                                            image: file
+                                        })
+                                    }} />
+                                <em className="text-danger">{err?.image}</em>
+                                <Col sm={3}>
+                                    <img src={data.image ? URL.createObjectURL(data.image) : ""} alt="" className="img img-fluid" />
+                                </Col>
+                            </Form.Group>
+
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" name="password" size="sm" required
+                                <Form.Control type="password" name="password" size="sm" required
                                     onChange={handleChange} />
                                 <em className="text-danger">{err?.password}</em>
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Remember Me" name="remember me" />
-                            </Form.Group>
+
+
                             <div className="d-grid">
                                 <Button variant="success" type="submit" size="sm">
                                     Submit
