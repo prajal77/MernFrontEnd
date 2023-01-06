@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { httpPostRequest } from "../../services/axios.service";
+import "react-toastify/dist/ReactToastify.css"
 
 const RegisterPage = () => {
     // let [email, setEmail] = useState(null);
@@ -11,20 +14,14 @@ const RegisterPage = () => {
         email: "",
         password: "",
         image: null,
+        role: 'customer'
     }
     let [data, setData] = useState(defaultData);
     let [err, setErr] = useState({
         email: '',
-        password: ''
+        password: '',
     });
     let navigate = useNavigate();
-    useEffect(() => {
-        let token = localStorage.getItem("accessToken");
-        if (token) {
-            let userInfo = JSON.parse(localStorage.getItem('_au'));
-            navigate("/" + userInfo.role)
-        }
-    }, [navigate]);
 
     // First way of useing useEffect hook
     // useEffect(() => {
@@ -61,7 +58,7 @@ const RegisterPage = () => {
                         .test(value) ? "" : "invalid email Format");
                 break;
             case "role":
-                msg = !value ? "role is required" : "";
+                msg = !value ? "role is required" : ((value !== 'customer' || value !== 'seller') ? "Undefined roles" : '');
                 break;
             case 'password':
                 msg = !value ? "Password is required" : (value.length < 8 ? "Password must be 8 character long" : "");
@@ -75,16 +72,43 @@ const RegisterPage = () => {
         })
     }
 
-    const handleSubmit = (e) => {
-        e.prevenDefault();
-        // TODO API call to integration
-    }
-    console.log(data);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(data);
+        try {
+            let formData = new FormData(); //to bind image data
+            if (data.image) {
+                formData.append("image", data.image.name);
+                delete data.image
+            }
+            Object.keys(data).map((key) => {
+                formData.append(key, data[key]);
+                return;
+            })
+            let response = await httpPostRequest("/register", formData, false, true);
+            if (response.status) {
+                toast.success(response.msg);
+                navigate('/login')
+            }
+        } catch (error) {
+            console.error(error);
+        }
 
+    }
+
+    // console.log(data);
+    useEffect(() => {
+        let token = localStorage.getItem("accessToken");
+        if (token) {
+            let userInfo = JSON.parse(localStorage.getItem('_au'));
+            navigate("/" + userInfo.role)
+        }
+    }, [navigate]);
 
     return (
         <>
             <Container>
+                <ToastContainer />
                 <Row className="mt-5">
                     <Col sm={{ offset: 3, span: 6 }}>
                         <h4>Register Page</h4>
@@ -131,7 +155,7 @@ const RegisterPage = () => {
 
                             <Form.Group className="mb-3" controlId="role">
                                 <Form.Label>Role:</Form.Label>
-                                <Form.Select name="role" required onChange={(e) => {
+                                <Form.Select name="role" required defaultValue={'customer'} onChange={(e) => {
                                     let value = e.target.value;
                                     setData({
                                         ...data,
@@ -139,10 +163,10 @@ const RegisterPage = () => {
                                     })
                                     validateData("role", value)
                                 }}>
-                                    <option value="customer">Seller</option>
-                                    <option value="seller">Customer</option>
+                                    <option value="seller">Seller</option>
+                                    <option value="customer">Customer</option>
                                 </Form.Select>
-                                <em className="text-danger">{err?.role}</em>
+                                {/* <em className="text-danger">{err?.role}</em> */}
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="image">
                                 <Form.Label>Image:</Form.Label>

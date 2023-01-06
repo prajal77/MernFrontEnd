@@ -39,6 +39,14 @@ const setHeader = (isStrict, formData = false) => {
 
         }
     }
+    if (formData) {
+        headers = {
+            headers: {
+                ...headers.headers,
+                "content-type": "multipart/form-data"
+            }
+        }
+    }
 }
 
 export const httpPostRequest = (url, data, isStrict = false, formData = false) => {

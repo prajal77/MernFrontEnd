@@ -118,7 +118,7 @@ const LoginPage = () => {
     return (
         <>
             <Container>
-                {/* <ToastContainer /> */}
+                <ToastContainer />
                 <Row className="mt-5">
                     <Col sm={{ offset: 3, span: 6 }}>
                         <h4>Login Page</h4>
