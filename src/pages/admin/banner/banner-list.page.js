@@ -1,25 +1,63 @@
 // import { NavLink } from "react-router-dom";
 import BreadCrumb from "../partials/breadcrumb.partials";
+import DataTable from 'react-data-table-component';
+import { useEffect, useState } from "react";
+import { httpGetRequest } from "../../../services/axios.service";
 
 const BannerListComponent = () => {
+    const columns = [
+        {
+            name: 'Title',
+            selector: row => row.name,
+            sortable: true,
+        },
+        {
+            name: 'Image',
+            selector: row => row.image,
+        },
+        {
+            name: 'Link',
+            selector: row => row.link,
+        },
+        {
+            name: 'Status',
+            selector: row => row.status,
+            sortable: true,
+        },
+        {
+            name: '',
+            selector: row => <></>,
+        },
+    ];
+    const [data, setData] = useState();
+    const getAllBanners = async () => {
+        try {
+            let response = await httpGetRequest('/banner');
+            if (response.status) {
+                setData(response.result);
+            }
+
+        } catch (error) {
+            console.error("Exception", error);
+        }
+    }
+    useEffect(() => {
+        getAllBanners();
+    }, []);
+
     return (<>
         <div className="container-fluid px-4">
             <BreadCrumb context="Banner"
                 createUrl="/admin/banner/create" type="List" />
             <div className="card mb-4">
                 <div className="card-body">
-                    <p className="mb-0">
-                        This page is an example of using static navigation. By removing the
-                        <code>.sb-nav-fixed</code>
-                        className from the
-                        <code>body</code>
-                        , the top navigation and side navigation will become static on scroll. Scroll down this page to see an example.
-                    </p>
+                    <DataTable
+                        columns={columns}
+                        data={data}
+                        pagination
+                    />
                 </div>
             </div>
-            {/* <div style="height: 100vh"></div> */}
-            <div style={{ height: '100vh' }}></div>
-            <div className="card mb-4"><div className="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
         </div>
     </>)
 }

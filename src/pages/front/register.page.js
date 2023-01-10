@@ -83,7 +83,7 @@ const RegisterPage = () => {
             }
             Object.keys(data).map((key) => {
                 formData.append(key, data[key]);
-                return;
+                return null;
             })
             let response = await httpPostRequest("/register", formData, false, true);
             if (response.status) {

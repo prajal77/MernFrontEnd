@@ -2,6 +2,9 @@ import { useFormik } from "formik";
 import { Button, Col, Form } from "react-bootstrap";
 import BreadCrumb from "../partials/breadcrumb.partials";
 import * as Yup from "yup"
+import { httpPostRequest } from "../../../services/axios.service";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const BannerCreateComponent = () => {
     let defaultValue = {
@@ -16,11 +19,32 @@ const BannerCreateComponent = () => {
         status: Yup.string().required("Status is required"),
         image: Yup.object().nullable()
     })
+    let navigate = useNavigate();
     const formik = useFormik({
         initialValues: defaultValue,
         validationSchema: BannerValidationSchema,
-        onSubmit: (values) => {
-            console.log(values);
+        onSubmit: async (values) => {
+            // mapping
+            try {
+                const formData = new FormData();
+                if (values.image) {
+                    formData.append('image', values.image, values.image.name)
+                    delete values.image
+                }
+                Object.keys(values).map((key) => {
+                    formData.append(key, values[key]);
+                    return null;
+                })
+                let response = await httpPostRequest('/banner', formData, true, true)
+                if (response.status) {
+                    toast.success(response.msg)
+                    navigate("/admin/banner")
+                } else {
+                    toast.error(response.msg)
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
         }
     }
 
