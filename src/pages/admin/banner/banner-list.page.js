@@ -3,6 +3,9 @@ import BreadCrumb from "../partials/breadcrumb.partials";
 import DataTable from 'react-data-table-component';
 import { useEffect, useState } from "react";
 import { httpGetRequest } from "../../../services/axios.service";
+import { Imageview } from "../../../component/common/image-view/image-view.component";
+import { ActionButtons } from "../../../component/common/image-view/action-btns/action-buttons.component";
+
 
 const BannerListComponent = () => {
     const columns = [
@@ -13,11 +16,13 @@ const BannerListComponent = () => {
         },
         {
             name: 'Image',
-            selector: row => row.image,
+            selector: row => <Imageview dir="/banner" path={row.image} />,
+            // selector: row => row.image,
+
         },
         {
             name: 'Link',
-            selector: row => row.link,
+            selector: row => row.link ? <a className="btn-link" href="{row.link}">row.link</a> : "",
         },
         {
             name: 'Status',
@@ -26,7 +31,7 @@ const BannerListComponent = () => {
         },
         {
             name: '',
-            selector: row => <></>,
+            selector: row => <ActionButtons />,
         },
     ];
     const [data, setData] = useState();
