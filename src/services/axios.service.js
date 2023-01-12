@@ -72,5 +72,5 @@ export const httpPatchRequest = (url, data, isStrict = false, formData = false) 
 
 export const httpDeleteRequest = (url, isStrict = false) => {
     setHeader(isStrict);
-    return axiosInstance.delete(url);
+    return axiosInstance.delete(url, headers);
 }
