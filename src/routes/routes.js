@@ -29,8 +29,9 @@ const Routing = () => {
                 <Route path="/admin" element={<PrivateRoute component={<AdminLayout />} />}>
                     <Route index element={<AdminPages.DashboardPage />} />
                     <Route path="banner" element={<AdminPages.Banner.BannerLayout />}>
-                        <Route index element={<AdminPages.Banner.BannerListComponent />} />
-                        <Route path="create" element={<AdminPages.Banner.BannerCreateComponent />} />
+                        <Route index element={<AdminPages.Banner.BannerListComponent />} ></Route>
+                        <Route path="create" element={<AdminPages.Banner.BannerCreateComponent />} ></Route>
+                        <Route path=":id" element={<AdminPages.Banner.BannerEditComponent />} ></Route>
                     </Route>
                 </Route>
 

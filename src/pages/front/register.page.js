@@ -74,7 +74,7 @@ const RegisterPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data);
+        // console.log(data);
         try {
             let formData = new FormData(); //to bind image data
             if (data.image) {

@@ -4,7 +4,7 @@ import DataTable from 'react-data-table-component';
 import { useEffect, useState } from "react";
 import { httpDeleteRequest, httpGetRequest } from "../../../services/axios.service";
 import { Imageview } from "../../../component/common/image-view/image-view.component";
-import { ActionButtons } from "../../../component/common/image-view/action-btns/action-buttons.component";
+import { ActionButtons } from "../../../component/common/action-btns/action-buttons.component";
 import { toast } from "react-toastify";
 
 
@@ -38,7 +38,7 @@ const BannerListComponent = () => {
         },
         {
             name: 'Link',
-            selector: row => row.link ? <a className="btn-link" href="{row.link}">row.link</a> : "",
+            selector: row => row.link ? <a className="btn-link" href={row.link}>{row.link}</a> : "",
         },
         {
             name: 'Status',
@@ -47,7 +47,7 @@ const BannerListComponent = () => {
         },
         {
             name: '',
-            selector: row => <ActionButtons id={row._id} deleteAction={deleteBanner} />,
+            selector: row => <ActionButtons id={row._id} deleteAction={deleteBanner} path="/admin/banner/" />,
         },
     ];
     const [data, setData] = useState();

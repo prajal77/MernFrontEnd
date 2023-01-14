@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 import Swal from 'sweetalert2'
 
 
-export const ActionButtons = ({ id, deleteAction }) => {
+export const ActionButtons = ({ id, deleteAction, path }) => {
     const onDelete = (e) => {
         e.preventDefault();
         Swal.fire({
@@ -21,7 +21,7 @@ export const ActionButtons = ({ id, deleteAction }) => {
         })
     }
     return (<>
-        <NavLink to="/edit" className="btn btn-sm btn-success rounded-circle me-2">
+        <NavLink to={path + id} className="btn btn-sm btn-success rounded-circle me-2">
             <i className="fa fa-pen" />
         </NavLink>
         <NavLink to="/delete" className="btn btn-sm btn-danger rounded-circle" onClick={onDelete}>

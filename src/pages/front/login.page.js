@@ -100,7 +100,7 @@ const LoginPage = () => {
                     toast.success(response.msg);
                     navigate("/" + userInfo.role)
                 }
-                console.log("Response:", response);
+                // console.log("Response:", response);
             } catch (error) {
                 toast.error(error.response.data.msg);
                 // console.error(error.response.data.msg);

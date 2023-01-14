@@ -7,14 +7,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminPartials from "../admin/partials";
 import { httpGetRequest } from "../../services/axios.service";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const AdminLayout = () => {
-    let [user, setUser] = useState();
+    // let [user, setUser] = useState();
 
     const getUserDetail = async (id) => {
-        let userDetail = await httpGetRequest("/user/" + id, true);
-        console.log(userDetail);
+        return await httpGetRequest("/user/" + id, true);
+        // console.log(userDetail);
     }
 
     useEffect(() => {
@@ -32,7 +32,6 @@ const AdminLayout = () => {
             <div id="layoutSidenav_content">
                 <main>
                     <Outlet />
-
                 </main>
                 <AdminPartials.AdminFooter />
             </div>
