@@ -33,6 +33,11 @@ const Routing = () => {
                         <Route path="create" element={<AdminPages.Banner.BannerCreateComponent />} ></Route>
                         <Route path=":id" element={<AdminPages.Banner.BannerEditComponent />} ></Route>
                     </Route>
+                    <Route path="brand" element={<AdminPages.Brand.BrandLayout />}>
+                        <Route index element={<AdminPages.Brand.BrandListComponent />} ></Route>
+                        <Route path="create" element={<AdminPages.Brand.BrandCreateComponent />} ></Route>
+                        <Route path=":id" element={<AdminPages.Brand.BrandEditComponent />} ></Route>
+                    </Route>
                 </Route>
 
                 <Route path="seller" element={<PrivateRoute component={<SellerLayout />} />}>

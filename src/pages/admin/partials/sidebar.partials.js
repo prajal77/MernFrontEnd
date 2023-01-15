@@ -16,10 +16,10 @@ const AdminSidebar = () => {
                                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                                 Banner
                             </NavLink>
-                            <a className="nav-link" href="index.html">
+                            <NavLink className="nav-link" to={'/admin/brand'}>
                                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                                 Brands
-                            </a>
+                            </NavLink>
                             <a className="nav-link" href="index.html">
                                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                                 Categories

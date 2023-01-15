@@ -8,13 +8,13 @@ import { ActionButtons } from "../../../component/common/action-btns/action-butt
 import { toast } from "react-toastify";
 
 
-const BannerListComponent = () => {
-    const deleteBanner = async (id) => {
+const BrandListComponent = () => {
+    const deleteBrand = async (id) => {
         try {
-            let response = await httpDeleteRequest("/banner/" + id, true);
+            let response = await httpDeleteRequest("/brand/" + id, true);
             if (response.status) {
                 toast.success(response.msg);
-                getAllBanners();
+                getAllBrands();
             } else {
                 toast.error(response.msg);
             }
@@ -32,13 +32,9 @@ const BannerListComponent = () => {
         },
         {
             name: 'Image',
-            selector: row => <Imageview dir="/banner" path={row.image} />,
+            selector: row => <Imageview dir="/brand" path={row.image} />,
             // selector: row => row.image,
 
-        },
-        {
-            name: 'Link',
-            selector: row => row.link ? <a className="btn-link" href={row.link}>{row.link}</a> : "",
         },
         {
             name: 'Status',
@@ -47,13 +43,13 @@ const BannerListComponent = () => {
         },
         {
             name: 'Action',
-            selector: row => <ActionButtons id={row._id} deleteAction={deleteBanner} path="/admin/banner/" />,
+            selector: row => <ActionButtons id={row._id} deleteAction={deleteBrand} path="/admin/brand/" />,
         },
     ];
     const [data, setData] = useState();
-    const getAllBanners = async () => {
+    const getAllBrands = async () => {
         try {
-            let response = await httpGetRequest('/banner');
+            let response = await httpGetRequest('/brand');
             if (response.status) {
                 setData(response.result);
             }
@@ -63,13 +59,13 @@ const BannerListComponent = () => {
         }
     }
     useEffect(() => {
-        getAllBanners();
+        getAllBrands();
     }, []);
 
     return (<>
         <div className="container-fluid px-4">
-            <BreadCrumb context="Banner"
-                createUrl="/admin/banner/create" type="List" />
+            <BreadCrumb context="Brand"
+                createUrl="/admin/brand/create" type="List" />
             <div className="card mb-4">
                 <div className="card-body">
                     <DataTable
@@ -82,4 +78,4 @@ const BannerListComponent = () => {
         </div>
     </>)
 }
-export default BannerListComponent;
+export default BrandListComponent;
